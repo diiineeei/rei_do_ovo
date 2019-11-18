@@ -16,7 +16,7 @@
 <div class="wrapper fadeInDown">
     <div id="formContent">
         <h2 class="active">Entrar</h2>
-        <a href="cadastro.php"><h2 class="inactive underlineHover">Cadastrar</h2></a>
+        <a href="../cadastro"><h2 class="inactive underlineHover">Cadastrar</h2></a>
 
         <div class="fadeIn first">
 
