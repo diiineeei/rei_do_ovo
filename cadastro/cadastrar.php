@@ -1,8 +1,8 @@
 <?php
 
-if (!empty($_POST) AND (empty($_POST['usuario']) OR empty($_POST['senha']))) {
+if (!empty($_POST) AND (empty($_POST['usuario']) OR empty($_POST['senha']) OR empty($_POST['nome']) OR empty($_POST['cpf']) OR empty($_POST['usuario']) OR empty($_POST['email']) OR empty($_POST['confirmasenha']))) {
 //    header("Location: index.php");
-    echo "<h3>Os dados devem estar preenchidos</h3>";
+    echo "<h3>Todos os dados devem estar preenchidos</h3>";
     die();
 }
 
@@ -19,19 +19,27 @@ $options = array(
 );
 
 try {
-    $dbh = new PDO($dsn, $username, $password, $options);
-    $dbh->beginTransaction();
-
-    $query = sprintf("INSERT INTO usuarios (nome, celular, cpf, usuario, email, senha) VALUES('%s','%s','%s','%s','%s','%s');",
-    $_POST['nome'], $_POST['celular'], $_POST['cpf'], $_POST['usuario'], $_POST['email'], $_POST['senha']);
-
-    foreach ($dbh->query($query) as $row) {
-        print_r($row);
-    }
-    $dbh->commit();
-    $dbh = null;
+    $conn = new PDO($dsn, $username, $password, $options);
+    $conn->beginTransaction();
 } catch (PDOException $e) {
+    $conn->rollBack();
     print "Error!: " . $e->getMessage() . "<br/>";
     die();
 }
+try {
+    $query = sprintf("INSERT INTO usuarios (nome, celular, cpf, usuario, email, senha) VALUES('%s','%s','%s','%s','%s','%s');",
+        $_POST['nome'], $_POST['celular'], $_POST['cpf'], $_POST['usuario'], $_POST['email'], $_POST['senha']);
 
+    $conn->query($query);
+    if($conn->errorCode() > 0){
+        echo "<br> codigo: " . $conn->errorCode() . "<br> erro: " . $conn->errorInfo()[2];
+    }else{
+        $conn->commit();
+        $conn = null;
+        echo "<h3>Usuario Cadastrado com Sucesso!</h3>";
+    }
+} catch (Exception $e){
+    $conn->rollBack();
+    print "Error!: " . $e->getMessage() . "<br/>";
+    die();
+}
