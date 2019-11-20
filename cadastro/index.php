@@ -28,7 +28,7 @@
                 <input type="text" id="usuario" class="fadeIn second" name="usuario" placeholder="Usuário">
                 <input type="text" id="email" class="fadeIn third" name="email" placeholder="E-mail">
                 <input type="password" id="password" class="fadeIn third" name="senha" placeholder="Senha">
-                <input type="password" id="password" class="fadeIn third" name="confirmaSenha" placeholder="Confirme sua Senha">
+                <input type="password" id="confirmasenha" class="fadeIn third" name="confirmasenha" placeholder="Confirme sua Senha">
                 <input type="submit" class="fadeIn fourth" value="Cadastrar">
             </form>
             <div id="formFooter">
