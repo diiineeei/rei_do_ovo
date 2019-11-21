@@ -1,13 +1,15 @@
 <?php
-
-if (!empty($_POST) AND (empty($_POST['usuario']) OR empty($_POST['senha']) OR empty($_POST['nome']) OR empty($_POST['cpf']) OR empty($_POST['usuario']) OR empty($_POST['email']) OR empty($_POST['confirmasenha']))) {
-//    header("Location: index.php");
-    echo "<h3>Todos os dados devem estar preenchidos</h3>";
+header('Content-type: application/json');
+http_response_code(200);
+if (!empty($_POST) AND (empty($_POST['senha']) OR empty($_POST['nome']) OR empty($_POST['cpf']) OR empty($_POST['email']) OR empty($_POST['confirmasenha']))) {
+    http_response_code(403);
+    echo json_encode(array("erro" => "Todos os dados devem estar preenchidos"));
     die();
 }
 
 if ($_POST['confirmasenha'] != $_POST['senha']) {
-    echo "<h3>Erro senhas não conferem</h3>";
+    http_response_code(403);
+    echo json_encode(array("erro" => "Erro senhas não conferem"));
     die();
 }
 
@@ -23,23 +25,25 @@ try {
     $conn->beginTransaction();
 } catch (PDOException $e) {
     $conn->rollBack();
-    print "Error!: " . $e->getMessage() . "<br/>";
+    http_response_code(500);
+    echo json_encode(array("erro" => $e->getMessage()));
     die();
 }
 try {
-    $query = sprintf("INSERT INTO usuarios (nome, celular, cpf, usuario, email, senha) VALUES('%s','%s','%s','%s','%s','%s');",
-        $_POST['nome'], $_POST['celular'], $_POST['cpf'], $_POST['usuario'], $_POST['email'], $_POST['senha']);
-
+    $query = sprintf("INSERT INTO usuarios (nome, celular, cpf, email, senha) VALUES('%s','%s','%s','%s','%s');",
+        $_POST['nome'], $_POST['celular'], $_POST['cpf'], $_POST['email'], $_POST['senha']);
     $conn->query($query);
-    if($conn->errorCode() > 0){
-        echo "<br> codigo: " . $conn->errorCode() . "<br> erro: " . $conn->errorInfo()[2];
-    }else{
+    if ($conn->errorCode() > 0) {
+        http_response_code(406);
+        echo json_encode(array("erro" => "code: " . $conn->errorInfo()[1] . " " . $conn->errorInfo()[2]));
+    } else {
         $conn->commit();
         $conn = null;
-        echo "<h3>Usuario Cadastrado com Sucesso!</h3>";
+        echo json_encode(array("Usuario Cadastrado com Sucesso!"));
     }
-} catch (Exception $e){
+} catch (Exception $e) {
     $conn->rollBack();
-    print "Error!: " . $e->getMessage() . "<br/>";
+    http_response_code(500);
+    echo json_encode(array("erro" => $e->getMessage()));
     die();
 }
