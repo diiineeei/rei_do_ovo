@@ -9,27 +9,27 @@ function validate_fields() {
     $("#confirmasenha").css('border-color', '');
     $("#preenchimento").text("");
 
-    if ($("#nome").val() === 0 || $("#nome").val() === '') {
+    if ($("#nome").val().length === 0 || $("#nome").val() === '') {
         $("#nome").css('border-color', '#ff000087');
         erro++;
     }
-    if ($("#celular").val() === 0 || $("#celular").val() === '') {
+    if ($("#celular").val().length === 0 || $("#celular").val() === '') {
         $("#celular").css('border-color', '#ff000087');
         erro++;
     }
-    if ($("#cpf").val() === 0 || $("#cpf").val() === '') {
+    if ($("#cpf").val().length === 0 || $("#cpf").val() === '') {
         $("#cpf").css('border-color', '#ff000087');
         erro++;
     }
-    if ($("#email").val() === 0 || $("#email").val() === '') {
+    if ($("#email").val().length === 0 || $("#email").val() === '') {
         $("#email").css('border-color', '#ff000087');
         erro++;
     }
-    if ($("#senha").val() === 0 || $("#senha").val() === '') {
+    if ($("#senha").val().length === 0 || $("#senha").val() === '') {
         $("#senha").css('border-color', '#ff000087');
         erro++;
     }
-    if ($("#confirmasenha").val() === 0 || $("#confirmasenha").val() === '') {
+    if ($("#confirmasenha").val().length === 0 || $("#confirmasenha").val() === '') {
         $("#confirmasenha").css('border-color', '#ff000087');
         erro++;
     }

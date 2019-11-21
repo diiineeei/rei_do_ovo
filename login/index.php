@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <!--<link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico"> -->
-
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.ico">
     <title>Rei do Ovo</title>
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="../assets/css/login.css" rel="stylesheet">
+    <script src="../assets/js/plugins/jquery_2.1.1.js"></script>
+    <script src="../assets/js/plugins/jquery_mask_1.14.11.js"></script>
+    <script src="../assets/js/custom_js/validate_fields.js"></script>
+    <script src="../assets/js/custom_js/validate_login.js"></script>
 </head>
 
 <body class="text-center">
@@ -21,9 +24,10 @@
         <div class="fadeIn first">
 
         <form method="POST" action="../examples/dashboard.html">
-            <input type="text" id="login" class="fadeIn second" name="login" placeholder="Usuário">
-            <input type="password" id="password" class="fadeIn third" name="login" placeholder="Senha">
-            <input type="submit" class="fadeIn fourth" value="Entrar">
+            <h3 class="col-form-label" id="preenchimento"></h3>
+            <input type="text" id="cpf" class="fadeIn second valida_cpf" name="cpf" placeholder="CPF">
+            <input type="password" id="senha" class="fadeIn third" name="senha" placeholder="Senha">
+            <input type="button" class="fadeIn fourth" value="Entrar" onclick="validate_fields()">
         </form>
 
         <div id="formFooter">
