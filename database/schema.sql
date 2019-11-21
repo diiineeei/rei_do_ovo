@@ -25,7 +25,6 @@ SET time_zone = "+00:00";
 CREATE TABLE `usuarios` (
   `id` int(11) UNSIGNED NOT NULL,
   `nome` varchar(50) NOT NULL,
-  `usuario` varchar(25) NOT NULL,
   `senha` varchar(40) NOT NULL,
   `email` varchar(100) NOT NULL,
   `nivel` int(1) UNSIGNED NOT NULL DEFAULT '1',
@@ -44,7 +43,6 @@ CREATE TABLE `usuarios` (
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `usuario` (`usuario`),
   ADD UNIQUE KEY `cpf` (`cpf`),
   ADD KEY `nivel` (`nivel`);
 
