@@ -75,16 +75,42 @@ function validate_fields() {
         };
 
         $.ajax(settings).done(function (response) {
+            $("#formContent").html(`
+                <h2 class="active">Cadastro</h2>
+                <div class="fadeIn first">
+                    <form method="POST" id="form_register" action="../login">
+                        <h2 class="text-success">Cadastrado com Sucesso</h2>
+                        <br>
+                        <h4 class="text-success">Bem-Vindo</h4>
+                        <h6 class="col-form-label text-success">Você ja pode fazer login na sua conta</h6>
+                        <button type="submit" class="btn btn-primary btn-round">Entrar</button>
+                        <br><br><br>
+                    </form>
+                </div>
+            `);
         }).fail(function (response) {
             if (response.status === 403){
                 $("#preenchimento").text(response.responseJSON["erro"]);
                 $("#confirmasenha").css('border-color', '#ff000087');
             }
             if (response.status === 406){
-                alert("Já existe um usuario cadastrado com estes dados em nossa base.")
+                $("#formContent").html(`
+                <h2 class="active">Cadastro</h2>
+                <div class="fadeIn first">
+                    <form method="POST" id="form_register" action="../login">
+                    <h4 class="text-danger">Atenção</h4>
+                    <h5 class="text-danger">Já existe um usuario cadastrado com estes dados em nossa base</h5>
+                    <h6 class="col-form-label text-danger">Você ja pode fazer login na sua conta</h6>
+                    <button type="submit" class="btn btn-primary btn-round">Entrar</button>
+                    <br><br>
+                    <div id="formFooter">
+                        <a class="underlineHover" href="#">Esqueceu a senha?</a>
+                    </div>
+                    </form>
+                </div>
+
+                `);
             }
-        }).success(function () {
-            alert("Usuario Cadastrado com sucesso")
         });
     }
 }
