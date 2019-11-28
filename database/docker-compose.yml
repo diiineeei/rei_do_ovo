@@ -4,14 +4,19 @@ volumes:
 services:
   db:
     image: mysql:5.6
+    container_name: mysql
     ports:
       - "3306:3306"
     volumes:
       - /var/lib/mysql:/var/lib/mysql"
     environment:
       - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_DATABASE=app_development
+      - MYSQL_DATABASE=rei_do_ovo
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+    restart: always
   app:
+    container_name: phpmyadmin
     image: phpmyadmin/phpmyadmin:latest
     links:
       - db
@@ -19,3 +24,4 @@ services:
       - 8888:80
     environment:
       - PMA_ARBITRARY=1
+#    restart: always
